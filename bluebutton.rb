@@ -2,11 +2,8 @@
 
 require 'device_input'
 
-BUTTON_NAME="AB Shutter3"
+DEFAULT_BUTTON_NAME="AB Shutter3"
 
-def find_device
-  devices = `xinput`.split("\n").select{|d| d["AB"]}
-end
 
 class Bluebutton
   attr_accessor :on_key_down
@@ -78,7 +75,7 @@ class Finder
 end
 
 
-button = Bluebutton.new(BUTTON_NAME)
+button = Bluebutton.new(DEFAULT_BUTTON_NAME)
 
 button.on_key_down = -> do
   puts "Key pressed"
