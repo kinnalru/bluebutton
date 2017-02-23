@@ -25,9 +25,10 @@ $ bluebutton -d="Shutter3" -c /home/.config/bluebutton # sudo as necessary
 
 * Ruby >= 2.0
 
-**DEPENDENCIES**
+* Kernel config
+![Kernel config](https://github.com/kinnalru/bluebutton/blob/master/kernel.png)
 
-* none
+* BlueZ
 
 Install the gem:
 ```shell
