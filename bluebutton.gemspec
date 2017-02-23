@@ -16,8 +16,8 @@ VERSION
   s.executables = ['bluebutton']
 
   s.required_ruby_version = "~> 2"
-  s.add_development_dependency "device_input"
-  s.add_development_dependency "slop"
+  s.add_runtime_dependency "device_input"
+  s.add_runtime_dependency "slop"
 
   s.version = File.read(File.join(__dir__, 'VERSION')).chomp
 end
