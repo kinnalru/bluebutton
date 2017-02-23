@@ -1,23 +1,23 @@
 # Bluebutton
 
-*fBluetooth button manual installation*
+# Usage
 
-You must setup bluetooth stack manually.
-Start scanning mode:
-```bluetoothctl```
-```[bluetooth]# power on```
-```[bluetooth]# scan on```
+```shell
+$ bluebutton -d="Shutter3" # sudo as necessary
+```
 
-Enable Buetooth Button and wait while it will be found:
-```[NEW] Device FF:FF:1D:14:79:80 AB Shutter3```
+**With config***
+```shell
+$ cat /home/.config/bluebutton
+keyup=echo UP
+keydown=echo down; echo DOWN
+longup=echo LONG UP
+longdown=echo LONG DOWN
+```
 
-Now you can pair Bluetooth Button and trust to it:
-```[bluetooth]# pair FF:FF:1D:14:79:80```
-```[CHG] Device FF:FF:1D:14:79:80 Paired: yes```
-```Pairing successful```
-```[AB Shutter3            ]# trust FF:FF:1D:14:79:80```
-```[CHG] Device FF:FF:1D:14:79:80 Trusted: yes```
-```[AB Shutter3            ]# quit```
+```shell
+$ bluebutton -d="Shutter3" -c /home/.config/bluebutton # sudo as necessary
+```
 
 # Installation
 
@@ -34,10 +34,27 @@ Install the gem:
 $ gem install bluebutton # sudo as necessary
 ```
 
-# Usage
+## Bluetooth button manual installation
 
-## Executable
+You must setup bluetooth stack manually.
+* Start scanning mode:
 
 ```shell
-$ bluebutton -d="Shutter3" # sudo as necessary
+$ bluetoothctl
+[bluetooth]$ power on
+[bluetooth]$ scan on
+```
+* Enable Buetooth Button and wait while it will be found:
+```shell
+[NEW] Device FF:FF:1D:14:79:80 AB Shutter3
+```
+
+* Now you can pair Bluetooth Button and trust to it:
+```shell
+[bluetooth]$ pair FF:FF:1D:14:79:80
+[CHG] Device FF:FF:1D:14:79:80 Paired: yes
+Pairing successful
+[AB Shutter3            ]$ trust FF:FF:1D:14:79:80
+[CHG] Device FF:FF:1D:14:79:80 Trusted: yes
+[AB Shutter3            ]$ quit
 ```
