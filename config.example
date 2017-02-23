@@ -1,0 +1,4 @@
+keyup=echo UP
+keydown=echo down; echo DOWN
+longup=echo LONG UP
+longdown=echo LONG DOWN

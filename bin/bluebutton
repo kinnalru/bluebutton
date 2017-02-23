@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+
+libs = File.expand_path(File.expand_path(File.dirname(__FILE__)) + '/../lib/')
+$LOAD_PATH.unshift(libs) unless $LOAD_PATH.include?(libs)
+
+require 'bluebutton'
+require 'slop'
+
+DEFAULT_DEVICE="AB Shutter3"
+
+opts = Slop.parse do |o|
+  o.banner = "bluebutton OPTIONS"
+  o.string '-d', '--device', "default: #{DEFAULT_DEVICE}"
+  o.string '-c', '--config'
+  o.on '-h', '--help' do
+    puts o
+    exit
+  end
+end
+
+device = opts[:device] || DEFAULT_DEVICE
+actions = {}
+
+if opts[:config]
+  File.readlines(opts[:config]).each do |line|
+    if line['keydown']
+      actions[:keydown]  = ->{system(line.split('=')[1].strip)}
+    elsif line['keyup']
+      actions[:keyup]    = ->{system(line.split('=')[1].strip)}
+    elsif line['longdown']
+      actions[:longdown] = ->{system(line.split('=')[1].strip)}
+    elsif line['longup']
+      actions[:longup]   = ->{system(line.split('=')[1].strip)}
+    end
+  end
+end
+
+button = Bluebutton.new(device)
+
+button.on_keydown  = actions[:keydown]  || -> {puts "Key pressed"}
+button.on_keyup    = actions[:keyup]    || -> {puts "Key released"}
+button.on_longdown = actions[:longdown] || -> {puts "Long pressed"}
+button.on_longup   = actions[:longup]   || -> {puts "Long released"}
+
+button.run
+
+
+
+
