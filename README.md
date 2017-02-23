@@ -1,12 +1,17 @@
 # Bluebutton
 
+Simple daemon that allows you to execute action when bluetooth button shutter pressed. So you can control your PC by low energy button device and few scripts.
+
+![Bluetooth Remote Shutter](https://github.com/kinnalru/bluebutton/blob/master/button.jpg)
+
+
 # Usage
 
 ```shell
 $ bluebutton -d="Shutter3" # sudo as necessary
 ```
 
-**With config***
+**With config**
 ```shell
 $ cat /home/.config/bluebutton
 keyup=echo UP
