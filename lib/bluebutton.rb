@@ -2,6 +2,7 @@ require 'device_input'
 
 
 class Bluebutton
+  attr_accessor :on_connected
   attr_accessor :on_keydown
   attr_accessor :on_keyup
   attr_accessor :on_longdown
@@ -19,12 +20,14 @@ class Bluebutton
 
     if xinput_id = @finder.from_xinput
       puts "xinput device finded with id=#{xinput_id}... Try disable for current X..."
-      system("xinput disable #{xinput_id}")
+      #system("xinput disable #{xinput_id}")
+      system("xinput float #{xinput_id}")
     end
   end
 
   def run
     File.open(@device, 'rb' ) do |input|
+      @on_connected.call if @on_connected
       DeviceInput.read_loop(input) do |event|
         if event.type == 'EV_KEY'
           #puts event
