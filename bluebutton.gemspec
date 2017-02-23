@@ -1,8 +1,8 @@
 Gem::Specification.new do |s|
   s.name = 'bluebutton'
-  s.summary = 'Deal with Bluetooth button aka selfy button'
+  s.summary = 'Deal with Bluetooth button aka selfy shutter'
   s.description = <<EOF
-Connect to Bluetooth button and execute action when pressed.
+Simple daemon that allows you to execute action when bluetooth button shutter pressed. So you can control your PC by low energy button device and few scripts.
 EOF
   s.authors = ["Samoilenko Yuri"]
   s.homepage = 'https://github.com/kinnalru/bluebutton'

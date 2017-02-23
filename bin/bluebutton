@@ -35,14 +35,27 @@ if opts[:config]
   end
 end
 
-button = Bluebutton.new(device)
 
-button.on_keydown  = actions[:keydown]  || -> {puts "Key pressed"}
-button.on_keyup    = actions[:keyup]    || -> {puts "Key released"}
-button.on_longdown = actions[:longdown] || -> {puts "Long pressed"}
-button.on_longup   = actions[:longup]   || -> {puts "Long released"}
 
-button.run
+
+
+while true do
+  begin
+    puts "Try to find device #{device}..."
+    button = Bluebutton.new(device)
+
+    button.on_keydown  = actions[:keydown]  || -> {puts "Key pressed"}
+    button.on_keyup    = actions[:keyup]    || -> {puts "Key released"}
+    button.on_longdown = actions[:longdown] || -> {puts "Long pressed"}
+    button.on_longup   = actions[:longup]   || -> {puts "Long released"}
+    puts "Reading events from #{button.device}..."
+    button.run
+  rescue => e
+    $stderr.puts e.message
+  end
+
+  sleep 3
+ end
 
 
 

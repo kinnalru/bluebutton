@@ -1,17 +1,26 @@
 require 'device_input'
 
+
 class Bluebutton
   attr_accessor :on_keydown
   attr_accessor :on_keyup
   attr_accessor :on_longdown
   attr_accessor :on_longup
+  attr_accessor :device
 
   def initialize name
     @finder = Finder.new(name)
     @device = @finder.from_sys
 
     raise "#{@device} is not a character device" unless File.chardev? @device
-    raise "#{@device} is not readable. Try sudo" unless File.readable? @device
+    raise "#{@device} is not readable. Try sudo -E bluebutton" unless File.readable? @device
+
+    puts "Device #{name} find at #{@device}" 
+
+    if xinput_id = @finder.from_xinput
+      puts "xinput device finded with id=#{xinput_id}... Try disable for current X..."
+      system("xinput disable #{xinput_id}")
+    end
   end
 
   def run
@@ -72,6 +81,16 @@ class Finder
 
     return device
   end
+
+  def from_xinput
+    if device =`xinput`.split("\n").compact.map(&:strip).select{|l| l.downcase[@name.downcase]}.first
+      puts "find:#{device}"
+      return /id=(\d+)/.match(device)[1]
+    end
+  rescue
+    return nil
+  end
+
 end
 
 
